@@ -3,6 +3,8 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/ysv/pkg/logger"
 )
 
 // The Handler helps to handle errors in one place.
@@ -15,12 +17,15 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err := h(w, r); err != nil {
 		switch e := err.(type) {
 		case *APIError:
+			logger.Warnf("HTTP %d - %s", e.Status, e)
+
 			// We can retrieve the status here and write out a specific HTTP status code.
 			w.WriteHeader(e.Status)
 			if err := json.NewEncoder(w).Encode(e); err != nil {
 				panic(err)
 			}
 		default:
+			logger.Warnf("HTTP 500 - %s", e)
 
 			w.WriteHeader(http.StatusInternalServerError)
 			// Fixme: Use separate struct for 500.
