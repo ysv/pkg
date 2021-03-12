@@ -1,0 +1,7 @@
+.idea
+bin
+/tmp
+.DS_Store
+
+config/*
+!config/config-template.yaml
