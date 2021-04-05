@@ -9,7 +9,7 @@ import (
 	rlredis "github.com/sethvargo/go-redisstore"
 )
 
-func New(lmtConf *LimiterConf) (*httplimit.Middleware, error) {
+func NewMiddleware(lmtConf *MiddlewareConf) (*httplimit.Middleware, error) {
 	store, err := rlredis.New(&rlredis.Config{
 		Tokens:   lmtConf.Tokens,
 		Interval: lmtConf.Interval,

@@ -6,7 +6,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-type LimiterConf struct {
+type MiddlewareConf struct {
 	Namespace string
 
 	Tokens   uint64
